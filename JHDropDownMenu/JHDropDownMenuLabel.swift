@@ -58,7 +58,16 @@ open class JHDropDownMenuLabel: UILabel, JHDropDownMenuDelegate {
                        marginVertical: CGFloat? = nil,
                        blindView: UIView? = nil,
                        delegate: JHDropDownMenuDelegate? = nil) -> JHDropDownMenuLabel {
-        _ = self.dropdown.option(id: id, isActiveTapGesture: isActiveTapGesture, isOpen: isOpen, animate: animate, selectorSize: selectorSize, marginVertical: marginVertical)
+        _ = self.dropdown.option(id: id,
+                                 isActiveTapGesture: isActiveTapGesture,
+                                 dismissOnSelected: dismissOnSelected,
+                                 isOpen: isOpen,
+                                 animate: animate,
+                                 automaticRelocation: automaticRelocation,
+                                 contentMode: contentMode,
+                                 selectorSize: selectorSize,
+                                 marginVertical: marginVertical,
+                                 blindView: blindView)
         if let delegate = delegate { self.delegate = delegate }
         return self
     }
