@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'JHDropDownMenu'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.swift_version    = '4.0'
   s.summary          = 'DropDown menu in UIView by extension'
   s.description      = 'Dropdown menu in UIView by extension'
