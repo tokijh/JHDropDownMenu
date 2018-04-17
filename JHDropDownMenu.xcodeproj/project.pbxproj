@@ -8,12 +8,59 @@
 
 /* Begin PBXBuildFile section */
 		605386DD2086319000730A5B /* JHDropDownMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 605386DB2086319000730A5B /* JHDropDownMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		605386EA208631A200730A5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386E9208631A200730A5B /* AppDelegate.swift */; };
+		605386EC208631A200730A5B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386EB208631A200730A5B /* ViewController.swift */; };
+		605386EF208631A200730A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 605386ED208631A200730A5B /* Main.storyboard */; };
+		605386F1208631A300730A5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 605386F0208631A300730A5B /* Assets.xcassets */; };
+		605386F4208631A300730A5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 605386F2208631A300730A5B /* LaunchScreen.storyboard */; };
+		605386F9208631AB00730A5B /* JHDropDownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605386D82086319000730A5B /* JHDropDownMenu.framework */; };
+		605386FA208631AB00730A5B /* JHDropDownMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 605386D82086319000730A5B /* JHDropDownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		60538703208631CB00730A5B /* JHDropDownMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386FE208631CA00730A5B /* JHDropDownMenuDelegate.swift */; };
+		60538704208631CB00730A5B /* JHDropDownMenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386FF208631CA00730A5B /* JHDropDownMenuLabel.swift */; };
+		60538705208631CB00730A5B /* JHDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60538700208631CA00730A5B /* JHDropDownMenu.swift */; };
+		60538706208631CB00730A5B /* JHDropDownMenu+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60538702208631CB00730A5B /* JHDropDownMenu+UIView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		605386FB208631AB00730A5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 605386CF2086319000730A5B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 605386D72086319000730A5B;
+			remoteInfo = JHDropDownMenu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		605386FD208631AB00730A5B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				605386FA208631AB00730A5B /* JHDropDownMenu.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		605386D82086319000730A5B /* JHDropDownMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JHDropDownMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		605386DB2086319000730A5B /* JHDropDownMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHDropDownMenu.h; sourceTree = "<group>"; };
 		605386DC2086319000730A5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		605386E7208631A200730A5B /* JHDropDownMenuDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JHDropDownMenuDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		605386E9208631A200730A5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		605386EB208631A200730A5B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		605386EE208631A200730A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		605386F0208631A300730A5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		605386F3208631A300730A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		605386F5208631A300730A5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		605386FE208631CA00730A5B /* JHDropDownMenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHDropDownMenuDelegate.swift; sourceTree = "<group>"; };
+		605386FF208631CA00730A5B /* JHDropDownMenuLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHDropDownMenuLabel.swift; sourceTree = "<group>"; };
+		60538700208631CA00730A5B /* JHDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHDropDownMenu.swift; sourceTree = "<group>"; };
+		60538701208631CB00730A5B /* JHDropDownMenu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = JHDropDownMenu.xcassets; sourceTree = "<group>"; };
+		60538702208631CB00730A5B /* JHDropDownMenu+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JHDropDownMenu+UIView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -24,6 +71,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		605386E4208631A200730A5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				605386F9208631AB00730A5B /* JHDropDownMenu.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -31,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				605386DA2086319000730A5B /* JHDropDownMenu */,
+				605386E8208631A200730A5B /* JHDropDownMenuDemo */,
 				605386D92086319000730A5B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				605386D82086319000730A5B /* JHDropDownMenu.framework */,
+				605386E7208631A200730A5B /* JHDropDownMenuDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -47,9 +104,27 @@
 			isa = PBXGroup;
 			children = (
 				605386DB2086319000730A5B /* JHDropDownMenu.h */,
+				60538700208631CA00730A5B /* JHDropDownMenu.swift */,
+				60538701208631CB00730A5B /* JHDropDownMenu.xcassets */,
+				60538702208631CB00730A5B /* JHDropDownMenu+UIView.swift */,
+				605386FE208631CA00730A5B /* JHDropDownMenuDelegate.swift */,
+				605386FF208631CA00730A5B /* JHDropDownMenuLabel.swift */,
 				605386DC2086319000730A5B /* Info.plist */,
 			);
 			path = JHDropDownMenu;
+			sourceTree = "<group>";
+		};
+		605386E8208631A200730A5B /* JHDropDownMenuDemo */ = {
+			isa = PBXGroup;
+			children = (
+				605386E9208631A200730A5B /* AppDelegate.swift */,
+				605386EB208631A200730A5B /* ViewController.swift */,
+				605386ED208631A200730A5B /* Main.storyboard */,
+				605386F0208631A300730A5B /* Assets.xcassets */,
+				605386F2208631A300730A5B /* LaunchScreen.storyboard */,
+				605386F5208631A300730A5B /* Info.plist */,
+			);
+			path = JHDropDownMenuDemo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,16 +159,39 @@
 			productReference = 605386D82086319000730A5B /* JHDropDownMenu.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		605386E6208631A200730A5B /* JHDropDownMenuDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 605386F6208631A300730A5B /* Build configuration list for PBXNativeTarget "JHDropDownMenuDemo" */;
+			buildPhases = (
+				605386E3208631A200730A5B /* Sources */,
+				605386E4208631A200730A5B /* Frameworks */,
+				605386E5208631A200730A5B /* Resources */,
+				605386FD208631AB00730A5B /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				605386FC208631AB00730A5B /* PBXTargetDependency */,
+			);
+			name = JHDropDownMenuDemo;
+			productName = JHDropDownMenuDemo;
+			productReference = 605386E7208631A200730A5B /* JHDropDownMenuDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		605386CF2086319000730A5B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "윤중현";
 				TargetAttributes = {
 					605386D72086319000730A5B = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					605386E6208631A200730A5B = {
 						CreatedOnToolsVersion = 9.3;
 					};
 				};
@@ -104,6 +202,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 605386CE2086319000730A5B;
 			productRefGroup = 605386D92086319000730A5B /* Products */;
@@ -111,6 +210,7 @@
 			projectRoot = "";
 			targets = (
 				605386D72086319000730A5B /* JHDropDownMenu */,
+				605386E6208631A200730A5B /* JHDropDownMenuDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -123,6 +223,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		605386E5208631A200730A5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				605386F4208631A300730A5B /* LaunchScreen.storyboard in Resources */,
+				605386F1208631A300730A5B /* Assets.xcassets in Resources */,
+				605386EF208631A200730A5B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -130,10 +240,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60538703208631CB00730A5B /* JHDropDownMenuDelegate.swift in Sources */,
+				60538706208631CB00730A5B /* JHDropDownMenu+UIView.swift in Sources */,
+				60538705208631CB00730A5B /* JHDropDownMenu.swift in Sources */,
+				60538704208631CB00730A5B /* JHDropDownMenuLabel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		605386E3208631A200730A5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				605386EC208631A200730A5B /* ViewController.swift in Sources */,
+				605386EA208631A200730A5B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		605386FC208631AB00730A5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 605386D72086319000730A5B /* JHDropDownMenu */;
+			targetProxy = 605386FB208631AB00730A5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		605386ED208631A200730A5B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				605386EE208631A200730A5B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		605386F2208631A300730A5B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				605386F3208631A300730A5B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		605386DE2086319000730A5B /* Debug */ = {
@@ -306,6 +456,44 @@
 			};
 			name = Release;
 		};
+		605386F7208631A300730A5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46KGHHF73Q;
+				INFOPLIST_FILE = JHDropDownMenuDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tokijh.com.JHDropDownMenuDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		605386F8208631A300730A5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46KGHHF73Q;
+				INFOPLIST_FILE = JHDropDownMenuDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = tokijh.com.JHDropDownMenuDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -323,6 +511,15 @@
 			buildConfigurations = (
 				605386E12086319000730A5B /* Debug */,
 				605386E22086319000730A5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		605386F6208631A300730A5B /* Build configuration list for PBXNativeTarget "JHDropDownMenuDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				605386F7208631A300730A5B /* Debug */,
+				605386F8208631A300730A5B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

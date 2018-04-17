@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="JHDropDownMenuDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1122.5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IuM-sN-98Z">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="1122.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3t-cu-nf2">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1121.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UILabel Drop down" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5f-XE-xBA">
+                                                <rect key="frame" x="114.5" y="200" width="146" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwH-0p-l7U" customClass="JHDropDownMenuLabel" customModule="JHDropDownMenu">
+                                                <rect key="frame" x="108.5" y="370.5" width="159.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="JHDropDownLabel"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoT-SG-j8m">
+                                                <rect key="frame" x="118" y="541" width="139" height="30"/>
+                                                <state key="normal" title="UIButton Drop down"/>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EgW-g6-iUl">
+                                                <rect key="frame" x="100" y="721" width="175" height="30"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UIView Drop down" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vy9-zw-cX4">
+                                                        <rect key="frame" x="17" y="5" width="141.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Vy9-zw-cX4" firstAttribute="centerY" secondItem="EgW-g6-iUl" secondAttribute="centerY" id="cyu-8q-q5Y"/>
+                                                    <constraint firstItem="Vy9-zw-cX4" firstAttribute="centerX" secondItem="EgW-g6-iUl" secondAttribute="centerX" id="ldp-M5-jKj"/>
+                                                    <constraint firstAttribute="height" constant="30" id="uTN-NG-hBR"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="vkd-UR-onv">
+                                                <rect key="frame" x="59" y="901" width="257" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxj-zl-4Lp" customClass="JHDropDownMenuLabel" customModule="JHDropDownMenu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="20.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="Z4k-U3-iej"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Please Select Item"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOP-bz-l37">
+                                                        <rect key="frame" x="215" y="0.0" width="42" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="nwH-0p-l7U" firstAttribute="top" secondItem="P5f-XE-xBA" secondAttribute="bottom" constant="150" id="5gK-wF-LCF"/>
+                                            <constraint firstItem="P5f-XE-xBA" firstAttribute="centerX" secondItem="L3t-cu-nf2" secondAttribute="centerX" id="6x2-rs-mhw"/>
+                                            <constraint firstItem="EgW-g6-iUl" firstAttribute="top" secondItem="CoT-SG-j8m" secondAttribute="bottom" constant="150" id="GuM-0T-bHq"/>
+                                            <constraint firstAttribute="trailing" secondItem="EgW-g6-iUl" secondAttribute="trailing" constant="100" id="Gv1-uw-ZJh"/>
+                                            <constraint firstAttribute="bottom" secondItem="vkd-UR-onv" secondAttribute="bottom" constant="200" id="J55-o3-f6X"/>
+                                            <constraint firstItem="CoT-SG-j8m" firstAttribute="centerX" secondItem="L3t-cu-nf2" secondAttribute="centerX" id="Jjn-ed-Ie0"/>
+                                            <constraint firstItem="vkd-UR-onv" firstAttribute="top" secondItem="EgW-g6-iUl" secondAttribute="bottom" constant="150" id="TGA-cT-iO5"/>
+                                            <constraint firstItem="P5f-XE-xBA" firstAttribute="top" secondItem="L3t-cu-nf2" secondAttribute="top" constant="200" id="VYl-QW-mY5"/>
+                                            <constraint firstItem="vkd-UR-onv" firstAttribute="centerX" secondItem="L3t-cu-nf2" secondAttribute="centerX" id="cb5-8P-JOL"/>
+                                            <constraint firstItem="EgW-g6-iUl" firstAttribute="leading" secondItem="L3t-cu-nf2" secondAttribute="leading" constant="100" id="hIY-yM-ioe"/>
+                                            <constraint firstItem="CoT-SG-j8m" firstAttribute="top" secondItem="nwH-0p-l7U" secondAttribute="bottom" constant="150" id="jtc-Hi-X6M"/>
+                                            <constraint firstItem="nwH-0p-l7U" firstAttribute="centerX" secondItem="L3t-cu-nf2" secondAttribute="centerX" id="kWA-O9-CXr"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="L3t-cu-nf2" secondAttribute="bottom" id="5oA-vr-B2f"/>
+                                    <constraint firstItem="L3t-cu-nf2" firstAttribute="width" secondItem="IuM-sN-98Z" secondAttribute="width" id="Fuc-bx-wyb"/>
+                                    <constraint firstItem="L3t-cu-nf2" firstAttribute="leading" secondItem="IuM-sN-98Z" secondAttribute="leading" id="HfG-lH-rLs"/>
+                                    <constraint firstItem="L3t-cu-nf2" firstAttribute="top" secondItem="IuM-sN-98Z" secondAttribute="top" id="Yqx-W2-azX"/>
+                                    <constraint firstAttribute="trailing" secondItem="L3t-cu-nf2" secondAttribute="trailing" id="q5i-PU-9Pn"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="IuM-sN-98Z" secondAttribute="bottom" id="LQi-I6-nDY"/>
+                            <constraint firstItem="IuM-sN-98Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="M6q-eP-h92"/>
+                            <constraint firstItem="IuM-sN-98Z" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Nbt-og-ZpF"/>
+                            <constraint firstAttribute="trailing" secondItem="IuM-sN-98Z" secondAttribute="trailing" id="RJK-ZL-k44"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="1122.5"/>
+                    <connections>
+                        <outlet property="jhDropDownLabel" destination="nwH-0p-l7U" id="st2-B2-bza"/>
+                        <outlet property="selectedLabel" destination="VOP-bz-l37" id="ITi-0a-gUV"/>
+                        <outlet property="selectedMenu" destination="Oxj-zl-4Lp" id="dy0-VC-etL"/>
+                        <outlet property="uiButtonDropDown" destination="CoT-SG-j8m" id="BcC-ld-Z44"/>
+                        <outlet property="uiLabelDropDown" destination="P5f-XE-xBA" id="AW4-aG-uj3"/>
+                        <outlet property="uiViewDropDown" destination="EgW-g6-iUl" id="6fI-00-lD8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
