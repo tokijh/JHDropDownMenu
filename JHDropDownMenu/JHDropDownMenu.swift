@@ -8,72 +8,58 @@
 
 import UIKit
 
-public class JHDropDownMenu: NSObject, UITableViewDataSource, UITableViewDelegate {
+public typealias JHStringDropDownMenu = JHDropDownMenu<String>
+
+public class JHDropDownMenu<T>: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     public enum ContentMode {
         case center, left, right
     }
     
     unowned let view: UIView
+    let listView: UITableView = UITableView()
     
+    private(set) var items: [[T]] = []
+    public var cellView: ((T) -> UIView) = { _ in UIView() }
+    public var sectionView: ((Int) -> UIView?) = { _ in return nil }
+    public lazy var selectedCellView: ((T) -> UIView)? = { [weak self] in
+        guard let strongSelf = self else { return UIView() }
+        let view = strongSelf.cellView($0)
+        view.backgroundColor = UIColor.lightGray
+        return view
+    }
+    public var setupListView: ((UITableView) -> Void) = {
+        $0.separatorInset = UIEdgeInsets.zero
+        $0.separatorColor = UIColor.gray
+        $0.layer.borderColor = UIColor.gray.cgColor
+        $0.layer.borderWidth = 1
+        $0.showsVerticalScrollIndicator = false
+        $0.rowHeight = UITableViewAutomaticDimension
+        $0.estimatedRowHeight = UITableViewAutomaticDimension
+        $0.sectionHeaderHeight = UITableViewAutomaticDimension
+        $0.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
+        $0.contentInset = UIEdgeInsets.zero
+    }
+    public var selectedIndexPath: IndexPath?
+    public var selectHandler: ((T) -> Void)?
+    public var selectIndexHandler: ((Int) -> Void)?
+    public var selectIndexPathHandler: ((IndexPath) -> Void)?
+    public var userObject: Any?
+    public weak var delegate: JHDropDownMenuDelegate?
+    public var shouldDismissWhenSelected: Bool = true
+    public var blindView: UIView?
+    public var listSize: CGSize = CGSize(width: 100, height: 200)
+    public var autoReLocation: Bool = true
+    public var verticalOffset: CGFloat = 0
+    public var contentMode: ContentMode = .center
+    public var isActiveTapGesture: Bool = true
+    public private(set) var isOpen: Bool = false
+    public var animate: Bool = true
+    private var isAnimating: Bool = false
     private lazy var blindTapGestrue: UITapGestureRecognizer = { [weak self] in
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self?.tapGestureBlind))
         return gesture
         }()
-    public private(set) lazy var listView: UITableView = { [weak self] in
-        let tableView = UITableView()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorInset = UIEdgeInsets.zero
-        tableView.separatorColor = UIColor.gray
-        tableView.layer.borderColor = UIColor.gray.cgColor
-        tableView.layer.borderWidth = 1
-        tableView.showsVerticalScrollIndicator = false
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
-        tableView.estimatedSectionHeaderHeight = 30
-        return tableView
-        }()
-    
-    private var isAnimating: Bool = false
-    
-    public var id: String? = nil
-    public var isActiveTapGesture: Bool = true
-    public var selectorHeight: CGFloat? = 200 {
-        didSet { updateState() }
-    }
-    public var selectorWidth: CGFloat? = nil {
-        didSet { updateState() }
-    }
-    public var selectorSize: (CGFloat?, CGFloat?) {
-        get { return (selectorWidth, selectorHeight) }
-        set { self.selectorWidth = newValue.0; self.selectorHeight = newValue.1 }
-    }
-    public var selectorCGSize: CGSize {
-        return CGSize(width: selectorWidth ?? self.view.frame.width, height: selectorHeight ?? 200)
-    }
-    public var dismissOnSelected: Bool = true
-    public private(set) var isOpen: Bool = false
-    public var animate: Bool = true
-    public var marginVertical: CGFloat = 0 {
-        didSet { updateState() }
-    }
-    public var automaticRelocation: Bool = true {
-        didSet { updateState() }
-    }
-    public var contentMode: ContentMode = .left {
-        didSet { updateState() }
-    }
-    public lazy var blindView: UIView? = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 100 / 255)
-        return view
-    }()
-    public weak var delegate: JHDropDownMenuDelegate? = nil
-    public var indexPathForSelectedRow: IndexPath? { return listView.indexPathForSelectedRow }
-    public var indexPathsForSelectedRows: [IndexPath]? { return listView.indexPathsForSelectedRows }
-    
-    public private(set) var sectionHeaderViews: [UIView?] = []
-    public private(set) var items: [[UIView]] = []
     
     private override init() {
         fatalError("init() has not been implemented")
@@ -83,82 +69,41 @@ public class JHDropDownMenu: NSObject, UITableViewDataSource, UITableViewDelegat
         self.view = view
         super.init()
         
+        // BlindView
+        self.blindView = UIView()
+        self.blindView?.backgroundColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 100 / 255)
+        
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.tapGesture)))
-        
-        updateState()
     }
     
-    public func set(delegate: JHDropDownMenuDelegate? = nil) {
-        self.delegate = delegate
+    public func set(items: [T], cellView: @escaping((T) -> UIView)) {
+        set(items: [items], cellView: cellView)
     }
     
-    public func set(blindView: UIView? = nil) {
-        self.blindView = nil
-    }
-    
-    public func set(id: String? = nil) {
-        self.id = id
-    }
-    
-    public func option(id: String? = nil,
-                       isActiveTapGesture: Bool? = nil,
-                       dismissOnSelected: Bool? = nil,
-                       isOpen: Bool? = nil,
-                       animate: Bool? = nil,
-                       automaticRelocation: Bool? = nil,
-                       contentMode: ContentMode? = nil,
-                       selectorSize: (width: CGFloat?, height: CGFloat?)? = nil,
-                       marginVertical: CGFloat? = nil,
-                       blindView: UIView? = nil,
-                       delegate: JHDropDownMenuDelegate? = nil) -> JHDropDownMenu {
-        if let id = id { self.id = id }
-        if let isActiveTapGesture = isActiveTapGesture { self.isActiveTapGesture = isActiveTapGesture }
-        if let dismissOnSelected = dismissOnSelected { self.dismissOnSelected = dismissOnSelected }
-        if let isOpen = isOpen { self.isOpen = isOpen }
-        if let animate = animate { self.animate = animate }
-        if let automaticRelocation = automaticRelocation { self.automaticRelocation = automaticRelocation }
-        if let contentMode = contentMode { self.contentMode = contentMode }
-        if let selectorSize = selectorSize { self.selectorSize = selectorSize }
-        if let marginVertical = marginVertical { self.marginVertical = marginVertical }
-        if let blindView = blindView { self.blindView = blindView }
-        if let delegate = delegate { self.delegate = delegate }
-        updateState()
-        return self
-    }
-    
-    public func set(texts: [[String]], sectionTitles: [String?] = []) {
-        self.items = texts.map {
-            $0.map {
-                return craeteTextLabel(text: $0)
-            }
-        }
-        self.sectionHeaderViews = sectionTitles.map {
-            guard let text = $0 else { return nil }
-            return craeteTextLabel(text: text)
-        }
-    }
-    
-    public func set(items: [[UIView]], sectionHeaderViews: [UIView?] = []) {
+    public func set(items: [[T]], cellView: @escaping((T) -> UIView), sectionView: ((Int) -> UIView?)? = nil) {
         self.items = items
-        self.sectionHeaderViews = sectionHeaderViews
+        self.cellView = cellView
+        self.sectionView = sectionView ?? { _ in nil }
     }
     
-    public func updateState() {
-        if isOpen {
-            open(animate: false)
+    public func select(_ index: Int?) {
+        if let index = index {
+            select(indexPath: IndexPath(row: index, section: 0))
         } else {
-            close(animate: false)
+            select(indexPath: nil)
         }
     }
     
-    public func open(animate: Bool = true) {
-        guard let point = self.view.superview?.convert(self.view.frame.origin, to: nil) else { return }
+    public func select(indexPath: IndexPath?) {
+        self.selectedIndexPath = indexPath
+        self.listView.reloadData()
+    }
+    
+    public func open(animate: Bool = false) {
+        initListView()
         
-        let size = self.selectorCGSize
-        let viewSize = self.view.frame.size
         self.listView.removeFromSuperview()
-        self.blindView?.removeFromSuperview()
         if let blindView = self.blindView {
             blindView.removeGestureRecognizer(self.blindTapGestrue)
             blindView.addGestureRecognizer(self.blindTapGestrue)
@@ -168,180 +113,47 @@ public class JHDropDownMenu: NSObject, UITableViewDataSource, UITableViewDelegat
         }
         UIApplication.shared.keyWindow?.addSubview(self.listView)
         
-        let beforeRect: CGRect
-        let afterRect: CGRect
-        
-        var y: CGFloat = point.y + viewSize.height + self.marginVertical
-        if y + size.height > UIScreen.main.bounds.height { // should drop up
-            let beforeY = point.y
-            y = point.y - size.height - self.marginVertical
-            switch self.contentMode {
-            case .center:
-                var x: CGFloat = point.x - ((size.width - viewSize.width) / 2)
-                if automaticRelocation, x < 0 { x = 0 }
-                beforeRect = CGRect(x: x,
-                                    y: beforeY,
-                                    width: size.width,
-                                    height: 0)
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: size.height)
-            case .left:
-                var x: CGFloat = point.x
-                if automaticRelocation, x + size.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - size.width }
-                beforeRect = CGRect(x: x,
-                                    y: beforeY,
-                                    width: size.width,
-                                    height: 0)
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: size.height)
-            case .right:
-                var x: CGFloat = point.x - ((size.width - viewSize.width))
-                if automaticRelocation, x < 0 { x = 0 }
-                beforeRect = CGRect(x: x,
-                                    y: beforeY,
-                                    width: size.width,
-                                    height: 0)
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: size.height)
-            }
-        } else { // should drop down
-            switch self.contentMode {
-            case .center:
-                var x: CGFloat = point.x - ((size.width - viewSize.width) / 2)
-                if automaticRelocation, x < 0 { x = 0 }
-                beforeRect = CGRect(x: x,
-                                    y: y,
-                                    width: size.width,
-                                    height: 0)
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: size.height)
-            case .left:
-                var x: CGFloat = point.x
-                if automaticRelocation, x + size.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - size.width }
-                beforeRect = CGRect(x: x,
-                                    y: y,
-                                    width: size.width,
-                                    height: 0)
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: size.height)
-            case .right:
-                var x: CGFloat = point.x - ((size.width - viewSize.width))
-                if automaticRelocation, x < 0 { x = 0 }
-                beforeRect = CGRect(x: x,
-                                    y: y,
-                                    width: size.width,
-                                    height: 0)
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: size.height)
-            }
-        }
+        let rects = calculateOpenLocation()
+        self.delegate?.willOpen(self, isOpen: true)
         if animate {
             if !isAnimating {
                 isAnimating = true
-                self.delegate?.willChange(self, id: self.id, view: self.view, isOpen: true)
                 listView.alpha = 0
-                listView.frame = beforeRect
+                listView.frame = rects.before
                 DispatchQueue.main.async {
                     UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .allowAnimatedContent, animations: {
                         self.listView.alpha = 1
-                        self.listView.frame = afterRect
+                        self.listView.frame = rects.after
                         self.blindView?.alpha = 1
                     }, completion: { _ in
                         self.isAnimating = false
                         self.isOpen = true
-                        self.delegate?.didChange(self, id: self.id, view: self.view, isOpen: true)
+                        self.listView.reloadData()
+                        self.delegate?.didOpen(self, isOpen: true)
                     })
                 }
             }
         } else {
-            self.delegate?.willChange(self, id: self.id, view: self.view, isOpen: true)
             DispatchQueue.main.async {
                 self.listView.alpha = 1
-                self.listView.frame = afterRect
+                self.listView.frame = rects.after
                 self.isOpen = true
                 self.blindView?.alpha = 1
-                self.delegate?.didChange(self, id: self.id, view: self.view, isOpen: true)
+                self.listView.reloadData()
+                self.delegate?.didOpen(self, isOpen: true)
             }
         }
     }
     
     public func close(animate: Bool = false) {
-        guard let point = self.view.superview?.convert(self.view.frame.origin, to: /* UIApplication.shared.keyWindow */ nil)
-            else { return }
-        let size = self.selectorCGSize
-        let viewSize = self.view.frame.size
-        let afterRect: CGRect
-        
-        var y: CGFloat = point.y + viewSize.height + self.marginVertical// + UIApplication.shared.statusBarFrame.height
-        if y + size.height > UIScreen.main.bounds.height { // should drop up
-            y = point.y// + UIApplication.shared.statusBarFrame.height
-            switch self.contentMode {
-            case .center:
-                var x: CGFloat = point.x - ((size.width - viewSize.width) / 2)
-                if automaticRelocation, x < 0 { x = 0 }
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: 0)
-            case .left:
-                var x: CGFloat = point.x
-                if automaticRelocation, x + size.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - size.width }
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: 0)
-            case .right:
-                var x: CGFloat = point.x - ((size.width - viewSize.width))
-                if automaticRelocation, x < 0 { x = 0 }
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: 0)
-            }
-        } else { // should drop down
-            switch self.contentMode {
-            case .center:
-                var x: CGFloat = point.x - ((size.width - viewSize.width) / 2)
-                if automaticRelocation, x < 0 { x = 0 }
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: 0)
-            case .left:
-                var x: CGFloat = point.x
-                if automaticRelocation, x + size.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - size.width }
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: 0)
-            case .right:
-                var x: CGFloat = point.x - ((size.width - viewSize.width))
-                if automaticRelocation, x < 0 { x = 0 }
-                afterRect = CGRect(x: x,
-                                   y: y,
-                                   width: size.width,
-                                   height: 0)
-            }
-        }
+        let rect = calculateCloseLocation()
+        self.delegate?.willOpen(self, isOpen: false)
         if animate {
             if !isAnimating {
                 isAnimating = true
-                self.delegate?.willChange(self, id: self.id, view: self.view, isOpen: false)
                 DispatchQueue.main.async {
                     UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .allowAnimatedContent, animations: {
-                        self.listView.frame = afterRect
+                        self.listView.frame = rect
                         self.listView.alpha = 0
                         self.blindView?.alpha = 0
                     }, completion: { _ in
@@ -349,17 +161,16 @@ public class JHDropDownMenu: NSObject, UITableViewDataSource, UITableViewDelegat
                         self.isAnimating = false
                         self.isOpen = false
                         self.blindView?.removeFromSuperview()
-                        self.delegate?.didChange(self, id: self.id, view: self.view, isOpen: false)
+                        self.delegate?.didOpen(self, isOpen: false)
                     })
                 }
             }
         } else {
-            self.delegate?.willChange(self, id: self.id, view: self.view, isOpen: false)
             DispatchQueue.main.async {
                 self.listView.removeFromSuperview()
                 self.isOpen = false
                 self.blindView?.removeFromSuperview()
-                self.delegate?.didChange(self, id: self.id, view: self.view, isOpen: false)
+                self.delegate?.didOpen(self, isOpen: false)
             }
         }
     }
@@ -372,13 +183,108 @@ public class JHDropDownMenu: NSObject, UITableViewDataSource, UITableViewDelegat
         }
     }
     
+    @objc private func tapGesture() {
+        guard isActiveTapGesture else { return }
+        toggle(animate: animate)
+    }
+    
     @objc private func tapGestureBlind() {
         close(animate: animate)
     }
     
-    @objc private func tapGesture() {
-        guard isActiveTapGesture else { return }
-        toggle(animate: animate)
+    private func initListView() {
+        setupListView(listView)
+        listView.dataSource = self
+        listView.delegate = self
+        listView.allowsMultipleSelection = true
+    }
+    
+    private func calculateOpenLocation() -> (before: CGRect, after: CGRect) {
+        guard let point = self.view.superview?.convert(self.view.frame.origin, to: nil) else { return (CGRect.zero, CGRect.zero) }
+        let totalHeight = self.listView.contentSize.height
+        let listSize = CGSize(width: self.listSize.width, height: min(totalHeight, self.listSize.height))
+        let viewSize = self.view.frame.size
+        
+        let before: CGRect
+        let after: CGRect
+        
+        var y = point.y + viewSize.height + verticalOffset
+        if y + listSize.height > UIScreen.main.bounds.height {
+            let beforeY = point.y
+            y = point.y - listSize.height - verticalOffset
+            var x: CGFloat
+            switch contentMode {
+            case .center:
+                x = point.x - ((listSize.width - viewSize.width) / 2)
+                if autoReLocation, x < 0 { x = 0 }
+            case .left:
+                x = point.x
+                if autoReLocation, x + listSize.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - listSize.width }
+            case .right:
+                x = point.x - ((listSize.width - viewSize.width))
+                if autoReLocation, x < 0 { x = 0 }
+            }
+            before = CGRect(x: x, y: beforeY, width: listSize.width, height: 0)
+            after = CGRect(x: x, y: y, width: listSize.width, height: listSize.height)
+        } else {
+            var x: CGFloat
+            switch contentMode {
+            case .center:
+                x = point.x - ((listSize.width - viewSize.width) / 2)
+                if autoReLocation, x < 0 { x = 0 }
+            case .left:
+                x = point.x
+                if autoReLocation, x + listSize.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - listSize.width }
+            case .right:
+                x = point.x - ((listSize.width - viewSize.width))
+                if autoReLocation, x < 0 { x = 0 }
+            }
+            before = CGRect(x: x, y: y, width: listSize.width, height: 0)
+            after = CGRect(x: x, y: y, width: listSize.width, height: listSize.height)
+        }
+        return (before, after)
+    }
+    
+    private func calculateCloseLocation() -> CGRect {
+        guard let point = self.view.superview?.convert(self.view.frame.origin, to: nil) else { return CGRect.zero }
+        let totalHeight = self.listView.contentSize.height
+        let listSize = CGSize(width: self.listSize.width, height: min(totalHeight, self.listSize.height))
+        let viewSize = self.view.frame.size
+        
+        let after: CGRect
+        
+        var y = point.y + viewSize.height + verticalOffset
+        if y + listSize.height > UIScreen.main.bounds.height {
+            y = point.y
+            var x: CGFloat
+            switch contentMode {
+            case .center:
+                x = point.x - ((listSize.width - viewSize.width) / 2)
+                if autoReLocation, x < 0 { x = 0 }
+            case .left:
+                x = point.x
+                if autoReLocation, x + listSize.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - listSize.width }
+            case .right:
+                x = point.x - ((listSize.width - viewSize.width))
+                if autoReLocation, x < 0 { x = 0 }
+            }
+            after = CGRect(x: x, y: y, width: listSize.width, height: 0)
+        } else {
+            var x: CGFloat
+            switch contentMode {
+            case .center:
+                x = point.x - ((listSize.width - viewSize.width) / 2)
+                if autoReLocation, x < 0 { x = 0 }
+            case .left:
+                x = point.x
+                if autoReLocation, x + listSize.width > UIScreen.main.bounds.width { x = UIScreen.main.bounds.width - listSize.width }
+            case .right:
+                x = point.x - ((listSize.width - viewSize.width))
+                if autoReLocation, x < 0 { x = 0 }
+            }
+            after = CGRect(x: x, y: y, width: listSize.width, height: 0)
+        }
+        return after
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -390,9 +296,16 @@ public class JHDropDownMenu: NSObject, UITableViewDataSource, UITableViewDelegat
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let view: UIView
+        if let selectedIndexPath = self.selectedIndexPath, selectedIndexPath == indexPath, let selectedCellView = self.selectedCellView {
+            view = selectedCellView(items[indexPath.section][indexPath.row])
+        } else {
+            view = cellView(items[indexPath.section][indexPath.row])
+        }
         let cell = UITableViewCell()
-        let view = items[indexPath.section][indexPath.row]
-        view.frame = cell.frame
+        cell.selectionStyle = .none
+        
+        view.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: cell.bounds.height)
         if indexPath.row == items[indexPath.section].count - 1 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: cell.bounds.width, bottom: 0, right: 0)
         }
@@ -400,64 +313,38 @@ public class JHDropDownMenu: NSObject, UITableViewDataSource, UITableViewDelegat
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard sectionHeaderViews.count > section, sectionHeaderViews[section] != nil else { return 0 }
-        return UITableViewAutomaticDimension
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedIndexPath = indexPath
+        selectHandler?(items[indexPath.section][indexPath.row])
+        selectIndexHandler?(indexPath.row)
+        selectIndexPathHandler?(indexPath)
+        delegate?.didSelectRowAt(self, indexPath: indexPath, item: items[indexPath.section][indexPath.row])
+        if shouldDismissWhenSelected { close(animate: animate) }
+        self.listView.reloadData()
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard sectionHeaderViews.count > section, let view = sectionHeaderViews[section] else { return nil }
-        return view
+        return sectionView(section)
     }
     
-    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return sectionView(section) == nil ? 0 : UITableViewAutomaticDimension
     }
     
-    public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return nil
+    public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return sectionView(section) == nil ? 0 : 20
     }
-    
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.didSelectRowAt(self, id: self.id, view: self.view, indexPath: indexPath)
-        if dismissOnSelected { close(animate: animate) }
-    }
-    
-    private func craeteTextLabel(text: String?) -> UIView {
-        let view = UIView()
-        let label = UILabel()
-        view.addSubview(label)
-        view.backgroundColor = UIColor.white
-        label.text = text
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: label,
-                           attribute: NSLayoutAttribute.top,
-                           relatedBy: NSLayoutRelation.equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.top,
-                           multiplier: 1,
-                           constant: 5).isActive = true
-        NSLayoutConstraint(item: label,
-                           attribute: NSLayoutAttribute.left,
-                           relatedBy: NSLayoutRelation.equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.left,
-                           multiplier: 1,
-                           constant: 5).isActive = true
-        NSLayoutConstraint(item: label,
-                           attribute: NSLayoutAttribute.right,
-                           relatedBy: NSLayoutRelation.equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.right,
-                           multiplier: 1,
-                           constant: -5).isActive = true
-        NSLayoutConstraint(item: label,
-                           attribute: NSLayoutAttribute.bottom,
-                           relatedBy: NSLayoutRelation.equal,
-                           toItem: view,
-                           attribute: NSLayoutAttribute.bottom,
-                           multiplier: 1,
-                           constant: -5).isActive = true
-        return view
+}
+
+extension JHDropDownMenu where T == String {
+    func set(texts: [String], cellView: ((String) -> UIView)?) {
+        self.set(items: texts,
+                 cellView: cellView
+                    ?? { value in
+                        let label = UILabel()
+                        label.text = value
+                        return label
+            }
+        )
     }
 }

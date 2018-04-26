@@ -7,13 +7,15 @@
 //
 
 public protocol JHDropDownMenuDelegate: class {
-    func willChange(_ dropdown: JHDropDownMenu, id: String?, view: UIView, isOpen: Bool)
-    func didChange(_ dropdown: JHDropDownMenu, id: String?, view: UIView, isOpen: Bool)
-    func didSelectRowAt(_ dropdown: JHDropDownMenu, id: String?, view: UIView, indexPath: IndexPath)
+    func willOpen<T>(_ dropdown: JHDropDownMenu<T>, isOpen: Bool)
+    func didOpen<T>(_ dropdown: JHDropDownMenu<T>, isOpen: Bool)
+    func willSelectRowAt<T>(_ dropdown: JHDropDownMenu<T>, indexPath: IndexPath, item: T)
+    func didSelectRowAt<T>(_ dropdown: JHDropDownMenu<T>, indexPath: IndexPath, item: T)
 }
 
-extension JHDropDownMenuDelegate {
-    public func willChange(_ dropdown: JHDropDownMenu, id: String?, view: UIView, isOpen: Bool) { }
-    public func didChange(_ dropdown: JHDropDownMenu, id: String?, view: UIView, isOpen: Bool) { }
-    public func didSelectRowAt(_ dropdown: JHDropDownMenu, id: String?, view: UIView, indexPath: IndexPath) { }
+public extension JHDropDownMenuDelegate {
+    func willOpen<T>(_ dropdown: JHDropDownMenu<T>, isOpen: Bool) { }
+    func didOpen<T>(_ dropdown: JHDropDownMenu<T>, isOpen: Bool) { }
+    func willSelectRowAt<T>(_ dropdown: JHDropDownMenu<T>, indexPath: IndexPath, item: T) { }
+    func didSelectRowAt<T>(_ dropdown: JHDropDownMenu<T>, indexPath: IndexPath, item: T) { }
 }

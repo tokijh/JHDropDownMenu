@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C3A2989208ED82400D6FF6F /* ButtonDropdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3A2987208ED82400D6FF6F /* ButtonDropdownCell.swift */; };
+		5C3A298A208ED82400D6FF6F /* ButtonDropdownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3A2988208ED82400D6FF6F /* ButtonDropdownCell.xib */; };
+		5C3A2992208ED9C500D6FF6F /* LabelDropdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3A2990208ED9C500D6FF6F /* LabelDropdownCell.swift */; };
+		5C3A2993208ED9C500D6FF6F /* LabelDropdownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C3A2991208ED9C500D6FF6F /* LabelDropdownCell.xib */; };
 		605386DD2086319000730A5B /* JHDropDownMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 605386DB2086319000730A5B /* JHDropDownMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		605386EA208631A200730A5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386E9208631A200730A5B /* AppDelegate.swift */; };
 		605386EC208631A200730A5B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386EB208631A200730A5B /* ViewController.swift */; };
@@ -16,7 +20,6 @@
 		605386F9208631AB00730A5B /* JHDropDownMenu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605386D82086319000730A5B /* JHDropDownMenu.framework */; };
 		605386FA208631AB00730A5B /* JHDropDownMenu.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 605386D82086319000730A5B /* JHDropDownMenu.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		60538703208631CB00730A5B /* JHDropDownMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386FE208631CA00730A5B /* JHDropDownMenuDelegate.swift */; };
-		60538704208631CB00730A5B /* JHDropDownMenuLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 605386FF208631CA00730A5B /* JHDropDownMenuLabel.swift */; };
 		60538705208631CB00730A5B /* JHDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60538700208631CA00730A5B /* JHDropDownMenu.swift */; };
 		60538706208631CB00730A5B /* JHDropDownMenu+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60538702208631CB00730A5B /* JHDropDownMenu+UIView.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +49,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5C3A2987208ED82400D6FF6F /* ButtonDropdownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDropdownCell.swift; sourceTree = "<group>"; };
+		5C3A2988208ED82400D6FF6F /* ButtonDropdownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonDropdownCell.xib; sourceTree = "<group>"; };
+		5C3A2990208ED9C500D6FF6F /* LabelDropdownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelDropdownCell.swift; sourceTree = "<group>"; };
+		5C3A2991208ED9C500D6FF6F /* LabelDropdownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabelDropdownCell.xib; sourceTree = "<group>"; };
 		605386D82086319000730A5B /* JHDropDownMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JHDropDownMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		605386DB2086319000730A5B /* JHDropDownMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JHDropDownMenu.h; sourceTree = "<group>"; };
 		605386DC2086319000730A5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,9 +64,7 @@
 		605386F3208631A300730A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		605386F5208631A300730A5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		605386FE208631CA00730A5B /* JHDropDownMenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHDropDownMenuDelegate.swift; sourceTree = "<group>"; };
-		605386FF208631CA00730A5B /* JHDropDownMenuLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHDropDownMenuLabel.swift; sourceTree = "<group>"; };
 		60538700208631CA00730A5B /* JHDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JHDropDownMenu.swift; sourceTree = "<group>"; };
-		60538701208631CB00730A5B /* JHDropDownMenu.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = JHDropDownMenu.xcassets; sourceTree = "<group>"; };
 		60538702208631CB00730A5B /* JHDropDownMenu+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JHDropDownMenu+UIView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +87,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C3A2983208ED7F000D6FF6F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5C3A298F208ED96300D6FF6F /* LabelDropdownCell */,
+				5C3A2984208ED80000D6FF6F /* ButtonDropdownCell */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		5C3A2984208ED80000D6FF6F /* ButtonDropdownCell */ = {
+			isa = PBXGroup;
+			children = (
+				5C3A2987208ED82400D6FF6F /* ButtonDropdownCell.swift */,
+				5C3A2988208ED82400D6FF6F /* ButtonDropdownCell.xib */,
+			);
+			path = ButtonDropdownCell;
+			sourceTree = "<group>";
+		};
+		5C3A298F208ED96300D6FF6F /* LabelDropdownCell */ = {
+			isa = PBXGroup;
+			children = (
+				5C3A2990208ED9C500D6FF6F /* LabelDropdownCell.swift */,
+				5C3A2991208ED9C500D6FF6F /* LabelDropdownCell.xib */,
+			);
+			path = LabelDropdownCell;
+			sourceTree = "<group>";
+		};
 		605386CE2086319000730A5B = {
 			isa = PBXGroup;
 			children = (
@@ -105,10 +137,8 @@
 			children = (
 				605386DB2086319000730A5B /* JHDropDownMenu.h */,
 				60538700208631CA00730A5B /* JHDropDownMenu.swift */,
-				60538701208631CB00730A5B /* JHDropDownMenu.xcassets */,
 				60538702208631CB00730A5B /* JHDropDownMenu+UIView.swift */,
 				605386FE208631CA00730A5B /* JHDropDownMenuDelegate.swift */,
-				605386FF208631CA00730A5B /* JHDropDownMenuLabel.swift */,
 				605386DC2086319000730A5B /* Info.plist */,
 			);
 			path = JHDropDownMenu;
@@ -119,6 +149,7 @@
 			children = (
 				605386E9208631A200730A5B /* AppDelegate.swift */,
 				605386EB208631A200730A5B /* ViewController.swift */,
+				5C3A2983208ED7F000D6FF6F /* Cell */,
 				605386ED208631A200730A5B /* Main.storyboard */,
 				605386F0208631A300730A5B /* Assets.xcassets */,
 				605386F2208631A300730A5B /* LaunchScreen.storyboard */,
@@ -227,6 +258,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C3A298A208ED82400D6FF6F /* ButtonDropdownCell.xib in Resources */,
+				5C3A2993208ED9C500D6FF6F /* LabelDropdownCell.xib in Resources */,
 				605386F4208631A300730A5B /* LaunchScreen.storyboard in Resources */,
 				605386F1208631A300730A5B /* Assets.xcassets in Resources */,
 				605386EF208631A200730A5B /* Main.storyboard in Resources */,
@@ -243,7 +276,6 @@
 				60538703208631CB00730A5B /* JHDropDownMenuDelegate.swift in Sources */,
 				60538706208631CB00730A5B /* JHDropDownMenu+UIView.swift in Sources */,
 				60538705208631CB00730A5B /* JHDropDownMenu.swift in Sources */,
-				60538704208631CB00730A5B /* JHDropDownMenuLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +284,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				605386EC208631A200730A5B /* ViewController.swift in Sources */,
+				5C3A2989208ED82400D6FF6F /* ButtonDropdownCell.swift in Sources */,
 				605386EA208631A200730A5B /* AppDelegate.swift in Sources */,
+				5C3A2992208ED9C500D6FF6F /* LabelDropdownCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

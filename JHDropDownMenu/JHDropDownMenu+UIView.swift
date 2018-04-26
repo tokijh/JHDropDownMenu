@@ -13,11 +13,11 @@ public extension UIView {
         static var dropdown: UInt8 = 0
     }
     
-    public var dropdown: JHDropDownMenu {
-        if let dropdown = objc_getAssociatedObject(self, &AssociatedKeys.dropdown) as? JHDropDownMenu {
+    public func getDropDown<T>(_ object: T.Type) -> JHDropDownMenu<T> {
+        if let dropdown = objc_getAssociatedObject(self, &AssociatedKeys.dropdown) as? JHDropDownMenu<T> {
             return dropdown
         } else {
-            let dropdown = JHDropDownMenu(view: self)
+            let dropdown = JHDropDownMenu<T>(view: self)
             objc_setAssociatedObject(self, &AssociatedKeys.dropdown, dropdown, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return dropdown
         }
